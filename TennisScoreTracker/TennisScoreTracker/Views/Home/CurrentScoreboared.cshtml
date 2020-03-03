@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "The Current Score";
+}
+
+@model ScoreboardModel
+
+
+<div class="jumbotron text-center">
+    <h1>Current Score</h1>
+    @if (Model.player1Score.Contains("Game"))
+    {
+        <h2>@Model.player1Score</h2>
+    }
+    else if (Model.player2Score.Contains("Game"))
+    {
+        <h2>@Model.player2Score</h2>
+    }
+    else
+    {
+        <h2>@Model.player1Name @Model.player1Score-@Model.player2Score @Model.player2Name</h2>
+    }
+</div>

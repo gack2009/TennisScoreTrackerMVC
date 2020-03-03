@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@model ScoreboardModel
+
+<div class="jumbotron">
+    <h1>Pay Point Technical Test</h1>
+</div>
+
+@using (Html.BeginForm("GetNewScore", "Home", FormMethod.Post))
+{
+    <div class="text-center">
+        <div class="col-md-5">
+            <h2>Player 1</h2>
+            <div>
+                <label>Player Name:</label>
+                @Html.TextBoxFor(m => m.player1Name, new { required = "required" })
+            </div>
+            <div>
+                <label>Player Score:</label>
+                @Html.TextBoxFor(m => m.player1Score, new { required = "required", oninvalid = "InvalidMsg(this);", oninput = "InvalidMsg(this);" })
+            </div>
+        </div>
+
+        <div class="col-md-1"></div>
+
+        <div class="col-md-5">
+            <h2>Player 2</h2>
+            <div>
+                <label>Player Name:</label>
+                @Html.TextBoxFor(m => m.player2Name, new { required = "required"})
+            </div>
+            <div>
+                <!--(?:0|15|30|40|A)-->
+                <label>Player Score:</label>
+                @*@Html.TextBoxFor(m => m.player2Score, new { required = "required", pattern = "^(0|15|30|40|A)$", oninvalid = "this.setCustomValidity('Invalid input please type 0, 15, 30, 40, or A.');" })*@
+                @Html.TextBoxFor(m => m.player2Score, new { required = "required", oninvalid = "InvalidMsg(this);", oninput = "InvalidMsg(this);"})
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3>Select Action</h3>
+            <input type="radio" name="scoreAction" id="scoreAction1" value="Player1WinsAPoint" checked />
+            <label for="scoreAction1">@Model.player1Name wins a point</label>
+            <br />
+            <input type="radio" name="scoreAction" id="scoreAction2" value="Player2WinsAPoint" />
+            <label for="scoreAction2">@Model.player2Name wins a point</label>
+            <br />
+            <button type="submit">Submit</button>
+        </div>
+    </div>
+}
+
+@section scripts {
+
+    <script>
+        function InvalidMsg(textbox) {
+
+            if (textbox.value === '')
+            {
+                textbox.setCustomValidity('You must enter a score!');
+            }
+            else if (textbox.value == "0" || textbox.value == "15" || textbox.value == "30" || textbox.value == "40" || textbox.value == "A" || textbox.value == "a")
+            {
+                textbox.setCustomValidity('');
+            }
+            else
+            {                
+                textbox.setCustomValidity('Invalid input please type 0, 15, 30, 40, or A.');
+            }
+
+            return true;
+        } 
+    </script>
+
+}
